@@ -4,16 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.fintrack.app.ui.navigation.FinTrackApp
+import com.fintrack.app.ui.theme.FinTrackTheme
 
+/**
+ * Единственная Activity приложения: вся навигация живёт внутри Compose.
+ *
+ * [enableEdgeToEdge] включает отрисовку под системными панелями — отступы
+ * расставлены самими экранами (statusBarsPadding в шапке,
+ * navigationBarsPadding в нижней навигации, imePadding в форме).
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
-                Text("FinTrack")
+            FinTrackTheme {
+                FinTrackApp()
             }
         }
     }
