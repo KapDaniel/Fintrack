@@ -1,0 +1,41 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Android / SDK
+local.properties
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+captures/
+.externalNativeBuild/
+.cxx/
+release/
+output.json
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+.navigation/
+
+# Keystores и секреты
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+secrets.properties
+
+# Логи и временные файлы
+*.log
+*.hprof
+.kotlin/
+
+# ОС
+.DS_Store
+Thumbs.db
