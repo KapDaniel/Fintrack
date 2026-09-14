@@ -5,8 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -397,6 +400,7 @@ private fun CategoryCard(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun DistributionChart(slices: List<DistributionSlice>) {
     val colors = FinTheme.colors
@@ -422,16 +426,19 @@ private fun DistributionChart(slices: List<DistributionSlice>) {
                 Box(
                     modifier = Modifier
                         .weight(slice.percent.toFloat())
-                        .fillMaxWidth()
+                        // Именно fillMaxHeight: без него сегмент получает нулевую высоту.
+                        .fillMaxHeight()
                         .background(if (slice.isOther) FinChartRest else palette[index % palette.size]),
                 )
             }
         }
-        Row(
+        // FlowRow, а не Row: четыре подписи в одну строку не помещаются даже на 360dp.
+        FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = Spacing.x3),
             horizontalArrangement = Arrangement.spacedBy(Spacing.x3),
+            verticalArrangement = Arrangement.spacedBy(Spacing.x2),
         ) {
             slices.forEachIndexed { index, slice ->
                 Row(

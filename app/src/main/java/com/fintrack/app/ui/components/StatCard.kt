@@ -92,7 +92,9 @@ fun StatCard(
                 modifier = Modifier
                     .size(if (isBalance) 36.dp else 28.dp)
                     .clip(PillShape)
-                    .background(Color.White.copy(alpha = if (isBalance) 0.8f else 0.6f)),
+                    // Подложка иконки берётся от цвета поверхности, иначе в тёмной
+                // теме получается светлое пятно.
+                .background(colors.surface.copy(alpha = if (isBalance) 0.8f else 0.6f)),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
