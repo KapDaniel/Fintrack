@@ -16,7 +16,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode|density|fontScale"
-            android:label="@string/app_name"
             android:theme="@style/Theme.FinTrack"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

@@ -6,7 +6,6 @@
     <string name="nav_home">Главная</string>
     <string name="nav_add">Добавить</string>
     <string name="nav_summary">Итоги</string>
-    <string name="nav_label">Основная навигация</string>
     <string name="action_back">Назад</string>
 
     <!-- Главная -->
@@ -40,7 +39,6 @@
     <string name="add_category_hint">Помогает группировать операции в разделе «Итоги»</string>
     <string name="add_category_error">Выберите категорию</string>
     <string name="add_date_label">Дата</string>
-    <string name="add_date_error">Выберите корректную дату</string>
     <string name="add_date_pick">Выбрать дату</string>
     <string name="add_type_label">Тип операции</string>
     <string name="add_type_expense">Расход</string>

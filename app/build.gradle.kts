@@ -37,6 +37,13 @@ android {
         compose = true
     }
 
+    lint {
+        // Папка mipmap-anydpi без -v26 не принимается aapt2, хотя lint её советует.
+        disable += "ObsoleteSdkInt"
+        warningsAsErrors = false
+        abortOnError = true
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -55,6 +62,10 @@ ksp {
 }
 
 dependencies {
+    // Версия зафиксирована явно: транзитивная из Compose/Room расходилась с той,
+    // против которой компилируются инструментальные тесты (NoSuchMethodError в runBlocking).
+    implementation(libs.kotlinx.coroutines.android)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
