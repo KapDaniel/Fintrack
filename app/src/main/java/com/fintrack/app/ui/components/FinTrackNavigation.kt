@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -33,6 +32,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.fintrack.app.ui.navigation.TopDestination
 import com.fintrack.app.ui.theme.FinTheme
@@ -122,7 +122,9 @@ fun FinTrackNavRail(
                         onClick = { onSelect(destination) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(64.dp),
+                            // heightIn, а не height: при увеличенном шрифте
+                            // фиксированная высота обрезает подпись.
+                            .heightIn(min = 64.dp),
                     )
                 }
             }
@@ -174,6 +176,9 @@ private fun NavItem(
             style = MaterialTheme.typography.labelMedium,
             fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.SemiBold,
             textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(horizontal = 2.dp),
         )
     }
 }

@@ -1,15 +1,26 @@
 package com.fintrack.app.ui.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -18,6 +29,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.fintrack.app.R
 import com.fintrack.app.ui.components.FinTrackBottomBar
 import com.fintrack.app.ui.components.FinTrackNavRail
 import com.fintrack.app.ui.components.FinTrackScaffoldDefaults
@@ -25,6 +37,9 @@ import com.fintrack.app.ui.screens.add.AddTransactionScreen
 import com.fintrack.app.ui.screens.home.HomeScreen
 import com.fintrack.app.ui.screens.summary.SummaryScreen
 import com.fintrack.app.ui.screens.transactions.TransactionsScreen
+import com.fintrack.app.ui.theme.FinTheme
+import com.fintrack.app.ui.theme.Spacing
+import kotlinx.coroutines.launch
 
 /**
  * Сколько места экран должен оставить снизу под плавающую навигацию.
@@ -42,14 +57,34 @@ fun FinTrackApp() {
     val currentRoute = backStackEntry?.destination?.route
     val topDestination = TopDestination.fromRoute(currentRoute)
 
+    // Хост общий для всего приложения: сообщение о сохранении показывается уже
+    // после возврата на «Главную».
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val savedMessage = stringResource(R.string.add_saved)
+
+    // Высота плавающей панели меряется по факту: при увеличенном системном
+    // шрифте подписи переносятся на две строки и панель становится выше.
+    var bottomBarHeightPx by remember { mutableIntStateOf(0) }
+
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val useRail = maxWidth >= RailBreakpoint
         val showNavigation = topDestination != null
-        val bottomPadding: Dp =
-            FinTrackScaffoldDefaults.contentBottomPadding(withNavigation = showNavigation && !useRail)
+        val measuredBarHeight = with(LocalDensity.current) { bottomBarHeightPx.toDp() }
+        val bottomPadding: Dp = if (showNavigation && !useRail) {
+            measuredBarHeight + Spacing.x4
+        } else {
+            FinTrackScaffoldDefaults.contentBottomPadding(withNavigation = false)
+        }
 
         CompositionLocalProvider(LocalContentBottomPadding provides bottomPadding) {
-            Row(Modifier.fillMaxSize()) {
+            // Фон нужен здесь: полоса под боковым rail иначе показывает
+            // оранжевый фон окна.
+            Row(
+                Modifier
+                    .fillMaxSize()
+                    .background(FinTheme.colors.surface)
+            ) {
                 if (useRail && showNavigation) {
                     FinTrackNavRail(
                         current = topDestination,
@@ -57,14 +92,27 @@ fun FinTrackApp() {
                     )
                 }
                 Box(Modifier.fillMaxSize()) {
-                    FinTrackNavHost(navController)
+                    FinTrackNavHost(
+                        navController = navController,
+                        onTransactionSaved = {
+                            scope.launch { snackbarHostState.showSnackbar(savedMessage) }
+                        },
+                    )
                     if (!useRail && showNavigation) {
                         FinTrackBottomBar(
                             current = topDestination,
                             onSelect = { navController.navigateToTop(it) },
-                            modifier = Modifier.align(Alignment.BottomCenter),
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .onSizeChanged { bottomBarHeightPx = it.height },
                         )
                     }
+                    SnackbarHost(
+                        hostState = snackbarHostState,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = bottomPadding),
+                    )
                 }
             }
         }
@@ -72,7 +120,10 @@ fun FinTrackApp() {
 }
 
 @Composable
-private fun FinTrackNavHost(navController: NavHostController) {
+private fun FinTrackNavHost(
+    navController: NavHostController,
+    onTransactionSaved: () -> Unit,
+) {
     NavHost(
         navController = navController,
         startDestination = Routes.HOME,
@@ -86,7 +137,10 @@ private fun FinTrackNavHost(navController: NavHostController) {
         }
         composable(Routes.ADD) {
             AddTransactionScreen(
-                onSaved = { navController.navigateToTop(TopDestination.HOME) },
+                onSaved = {
+                    navController.navigateToTop(TopDestination.HOME)
+                    onTransactionSaved()
+                },
             )
         }
         composable(Routes.SUMMARY) {

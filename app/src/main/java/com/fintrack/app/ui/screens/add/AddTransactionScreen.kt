@@ -137,10 +137,12 @@ fun AddTransactionScreen(
                 value = state.comment,
                 onValueChange = viewModel::onCommentChange,
             )
+            // Кнопка остаётся активной: иначе ошибки валидации некуда показать —
+            // пользователь просто упирается в серую кнопку без объяснения.
             PrimaryButton(
                 label = stringResource(R.string.add_submit),
                 onClick = viewModel::onSubmit,
-                enabled = state.canSubmit,
+                enabled = !state.isSaving,
                 modifier = Modifier.padding(top = Spacing.x2),
             )
             Box(Modifier.padding(bottom = LocalContentBottomPadding.current))
