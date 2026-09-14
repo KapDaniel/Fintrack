@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FinTrack</string>
+
+    <!-- Навигация -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_add">Добавить</string>
+    <string name="nav_summary">Итоги</string>
+    <string name="nav_label">Основная навигация</string>
+    <string name="action_back">Назад</string>
+
+    <!-- Главная -->
+    <string name="home_title">Главная</string>
+    <string name="home_greeting">Привет! Хорошего дня</string>
+    <string name="home_balance_label">Баланс (USD)</string>
+    <string name="home_income">Доходы</string>
+    <string name="home_expense">Расходы</string>
+    <string name="home_recent_title">Последние операции</string>
+    <string name="home_all_transactions">Все операции</string>
+    <string name="home_show_more">Показать ещё операции</string>
+    <string name="home_show_less">Свернуть</string>
+    <string name="home_empty_title">Операций пока нет</string>
+    <string name="home_empty_subtitle">Добавьте первую операцию, чтобы увидеть статистику</string>
+    <string name="home_empty_action">Добавить операцию</string>
+
+    <!-- Все операции -->
+    <string name="transactions_title">Все операции</string>
+    <string name="transactions_today">Сегодня</string>
+    <string name="transactions_yesterday">Вчера</string>
+
+    <!-- Добавление операции -->
+    <string name="add_title">Новая операция</string>
+    <string name="add_subtitle">Заполните детали, чтобы добавить запись</string>
+    <string name="add_available_label">Доступно</string>
+    <string name="add_amount_label">Сумма</string>
+    <string name="add_amount_placeholder">0.00</string>
+    <string name="add_amount_error">Введите сумму больше 0</string>
+    <string name="add_category_label">Категория</string>
+    <string name="add_category_placeholder">Выберите категорию</string>
+    <string name="add_category_hint">Помогает группировать операции в разделе «Итоги»</string>
+    <string name="add_category_error">Выберите категорию</string>
+    <string name="add_date_label">Дата</string>
+    <string name="add_date_error">Выберите корректную дату</string>
+    <string name="add_date_pick">Выбрать дату</string>
+    <string name="add_type_label">Тип операции</string>
+    <string name="add_type_expense">Расход</string>
+    <string name="add_type_income">Доход</string>
+    <string name="add_comment_label">Комментарий</string>
+    <string name="add_comment_optional">(необязательно)</string>
+    <string name="add_comment_placeholder">Например: продукты на неделю</string>
+    <string name="add_comment_hint">До 120 символов</string>
+    <string name="add_submit">Сохранить операцию</string>
+    <string name="add_saved">Операция сохранена</string>
+
+    <!-- Итоги -->
+    <string name="summary_title">Итоги</string>
+    <string name="summary_subtitle">Обзор доходов и расходов за выбранный период</string>
+    <string name="summary_period">Период</string>
+    <string name="summary_change_period">Изменить период</string>
+    <string name="summary_prev_period">Предыдущий месяц</string>
+    <string name="summary_next_period">Следующий месяц</string>
+    <string name="summary_balance">Баланс за период</string>
+    <string name="summary_categories">Частые категории</string>
+    <string name="summary_distribution">Распределение расходов</string>
+    <string name="summary_other">Другое</string>
+    <string name="summary_percent_of_expense">%d%% от расходов</string>
+    <string name="summary_percent_of_income">%d%% от доходов</string>
+    <string name="summary_empty_title">За этот период операций нет</string>
+    <string name="summary_empty_subtitle">Выберите другой период или добавьте операцию</string>
+
+    <!-- Доступность -->
+    <string name="cd_income_amount">Доход %s</string>
+    <string name="cd_expense_amount">Расход %s</string>
+</resources>

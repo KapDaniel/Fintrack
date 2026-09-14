@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Оранжевый шапки: стартовое окно совпадает с первым экраном. -->
+    <color name="window_background">#E8650F</color>
+    <color name="ic_launcher_background">#E8650F</color>
+</resources>
