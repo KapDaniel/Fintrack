@@ -55,6 +55,7 @@ import com.fintrack.app.domain.model.TransactionType
 import com.fintrack.app.domain.usecase.ValidateTransactionInput
 import com.fintrack.app.ui.components.CategoryIcons
 import com.fintrack.app.ui.components.FinTrackScaffold
+import com.fintrack.app.ui.components.NotificationsButton
 import com.fintrack.app.ui.components.PrimaryButton
 import com.fintrack.app.ui.navigation.LocalContentBottomPadding
 import com.fintrack.app.ui.theme.BalanceLabelStyle
@@ -78,11 +79,19 @@ fun AddTransactionScreen(
 
     FinTrackScaffold(
         header = {
-            Text(
-                text = stringResource(R.string.add_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = colors.textInverse,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = stringResource(R.string.add_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = colors.textInverse,
+                    modifier = Modifier.weight(1f, fill = false),
+                )
+                NotificationsButton()
+            }
             Text(
                 text = stringResource(R.string.add_subtitle),
                 style = MaterialTheme.typography.bodyMedium,

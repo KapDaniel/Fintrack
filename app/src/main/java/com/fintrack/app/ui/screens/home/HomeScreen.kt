@@ -39,6 +39,7 @@ import com.fintrack.app.di.AppViewModelFactory
 import com.fintrack.app.domain.model.TransactionType
 import com.fintrack.app.ui.components.EmptyState
 import com.fintrack.app.ui.components.FinTrackScaffold
+import com.fintrack.app.ui.components.NotificationsButton
 import com.fintrack.app.ui.components.SectionHeader
 import com.fintrack.app.ui.components.StatCard
 import com.fintrack.app.ui.components.StatCardKind
@@ -73,11 +74,19 @@ private fun HomeContent(
 
     FinTrackScaffold(
         header = {
-            Text(
-                text = stringResource(R.string.home_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = colors.textInverse,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = stringResource(R.string.home_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = colors.textInverse,
+                    modifier = Modifier.weight(1f, fill = false),
+                )
+                NotificationsButton()
+            }
             Text(
                 text = stringResource(R.string.home_greeting),
                 style = MaterialTheme.typography.bodyMedium,

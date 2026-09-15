@@ -8,6 +8,11 @@
     <string name="nav_summary">Итоги</string>
     <string name="action_back">Назад</string>
 
+    <!-- Уведомления -->
+    <string name="notifications_open">Открыть уведомления</string>
+    <string name="notifications_empty_title">Новых уведомлений нет</string>
+    <string name="notifications_empty_subtitle">Мы сообщим, когда появятся важные события по счёту</string>
+
     <!-- Главная -->
     <string name="home_title">Главная</string>
     <string name="home_greeting">Привет! Хорошего дня</string>
